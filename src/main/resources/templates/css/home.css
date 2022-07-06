@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Inline&display=swap');
+:root {
+    --bggradient : linear-gradient(to bottom , #0095ff, #48b46e)
+}
+header {
+    background: var(--bggradient);
+}
+header a {
+    color: white;
+}
+.navbar-brand {
+    padding-left: 4rem;
+}
+
+.nav-item:last-child {
+    padding-right: 5rem;
+}
+.nav-item{
+    padding: 0.7rem;
+}
+.nav-link:hover{
+    color: black;
+}
+header a {
+    font-size: 0.9em;
+}
+header .row .col-md-7 {
+    padding: 22vmin 1vmin;
+    padding-bottom: 35vmin;
+}
+
+header .row .col-md-5 {
+    padding: 4.5vmin 0.8vmin ;
+}
+
+header .row .col-md-5 img{
+    width: 100%;
+}
+header .container .col-md-7 h6{
+    padding: 2vmin;
+    letter-spacing: 4px;
+}
+
+header .container .col-md-7 h1{
+    padding: 0.1em 0em;
+    font-size: 6.5vmin;
+    font-weight: bold;
+}
+header .container .col-md-7 p{
+    padding: 1vmin 5vmin;
+}
+
