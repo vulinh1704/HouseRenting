@@ -52,8 +52,16 @@ public class HouseService implements IHouseService {
         return houseRepository.findAllByIdCategory(id);
     }
 
+
     @Override
     public Iterable<House> findAllByAddressContaining(String address) {
         return houseRepository.findAllByAddressContaining(address);
     }
+
+    @Override
+    public Iterable<House> findAllByNameContainingAndPriceBetween(String name, int from, int to) {
+        return houseRepository.findAllByNameContainingAndPriceBetween(name, from, to);
+    }
+
+
 }

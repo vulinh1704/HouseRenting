@@ -13,13 +13,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/house")
 public class HouseController {
     @Autowired
     private HouseService houseService;
 
     @GetMapping
-    public ResponseEntity<Page<House>> findAllHouse(@PageableDefault(value = 2)  Pageable pageable) {
+    public ResponseEntity<Page<House>> findAllHouse(@PageableDefault(value = 6)  Pageable pageable) {
         Page<House> houses = houseService.findAll(pageable);
         if (houses.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -72,6 +73,13 @@ public class HouseController {
         Iterable<House> houses = (Iterable<House>) houseService.findAllByAddressContaining(address);
         return new ResponseEntity<>(houses, HttpStatus.OK);
     }
+
+    @GetMapping("/by-price-between-name")
+    public ResponseEntity<Iterable<House>> findAllByPriceByName(@RequestParam String name,@RequestParam int from,@RequestParam int to) {
+        Iterable<House> houses = houseService.findAllByNameContainingAndPriceBetween(name, from, to);
+        return new ResponseEntity<>(houses, HttpStatus.OK);
+    }
+
 
 
 }
