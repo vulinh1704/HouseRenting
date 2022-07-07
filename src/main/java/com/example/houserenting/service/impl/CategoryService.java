@@ -35,4 +35,14 @@ public class CategoryService implements ICategory {
     public Optional<Category> findById(Long id) {
         return Optional.empty();
     }
+
+    @Override
+    public Iterable<Category> findCategoryById(Long id) {
+        return categoryRepository.findCategoryById(id);
+    }
+
+    @Override
+    public Iterable<Category> findAllByNameContaining(String name) {
+        return categoryRepository.findAllByNameContaining(name);
+    }
 }

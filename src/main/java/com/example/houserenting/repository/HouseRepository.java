@@ -6,6 +6,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface HouseRepository extends JpaRepository<House,Long> {
+
+    Iterable<House>findAllByNameContaining(String name);
+
+    Iterable<House>findAllByPriceBetween(int from, int to);
     
 
 }
