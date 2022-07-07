@@ -90,7 +90,7 @@ function showRe_Log() {
     body {
         background: #76b852; /* fallback for old browsers */
         background: rgb(141,194,111);
-        background: linear-gradient(90deg, rgb(111,194,165) 0%, rgb(89,184,82) 50%);
+        background: linear-gradient(90deg, rgb(66,176,118) 0%, rgb(66,176,118) 50%);
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }

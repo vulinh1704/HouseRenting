@@ -33,9 +33,6 @@ header .row .col-md-5 {
     padding: 4.5vmin 0.8vmin ;
 }
 
-/*header .row .col-md-5 img{*/
-/*    width: 100%;*/
-/*}*/
 header .container .col-md-7 h6{
     padding: 2vmin;
     letter-spacing: 4px;
@@ -73,4 +70,9 @@ button {
     -webkit-transition: all 0.3 ease;
     transition: all 0.3 ease;
     cursor: pointer;
+}
+
+.imageC {
+    width: 100%;
+    height: 350px;
 }

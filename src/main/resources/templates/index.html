@@ -7,13 +7,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
           integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-
-
 </head>
 <body>
 <div id="content" style="font-family: 'Bungee Inline', cursive;">
-    <header style="height: 100vh;">
-        <div class="container-fulild p-0">
+    <header style="height: 100%;">
+        <div class="container-fluid p-0">
             <nav class="navbar navbar-expand-lg">
                 <a class="navbar-brand" onclick="showHome()"><i class="fa-solid fa-house-chimney-window fa-2x mx-2"></i>THIÊN ĐƯỜNG
                     NHÀ</a>
@@ -33,7 +31,7 @@
                             <a class="nav-link" href="#">ĐĂNG NHÀ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">ĐẶT NHÀ</a>
+                            <a class="nav-link" onclick="htmlHouse()">ĐẶT NHÀ</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link" href="#" id="navbarDropdown" role="button"
@@ -54,6 +52,7 @@
                 </div>
             </nav>
         </div>
+
         <div class="container text-center" id="main">
         </div>
 <!--        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">-->
@@ -102,5 +101,6 @@
 <script src="javascript/upload.js"></script>
 <script src="javascript/home.js"></script>
 <script src="javascript/re_log.js"></script>
+<script src="javascript/house.js"></script>
 </body>
 </html>
