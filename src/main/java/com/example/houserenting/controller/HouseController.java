@@ -19,7 +19,7 @@ public class HouseController {
     private HouseService houseService;
 
     @GetMapping
-    public ResponseEntity<Page<House>> findAllHouse(@PageableDefault(value = 5) Pageable pageable) {
+    public ResponseEntity<Page<House>> findAllHouse(@PageableDefault(value = 2)  Pageable pageable) {
         Page<House> houses = houseService.findAll(pageable);
         if (houses.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -35,6 +35,12 @@ public class HouseController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(houseOptional.get(), HttpStatus.OK);
+    }
+
+    @GetMapping("/category/{id}")
+    public ResponseEntity< Iterable<House> > findByIdCategory(@PathVariable Long id) {
+        Iterable<House> houses = houseService.findAllByIdCategory(id);
+        return new ResponseEntity<>(houses, HttpStatus.OK);
     }
 
 //    Cái này là hàm save thường
@@ -55,12 +61,17 @@ public class HouseController {
         return new ResponseEntity<>( HttpStatus.OK);
     }
 
+    @GetMapping("/by-price-between")
+    public ResponseEntity<Iterable<House>> findAllByPriceBetween(@RequestParam int from, @RequestParam int to) {
+        Iterable<House> houses = (Iterable<House>) houseService.findAllByPriceBetween(from,to);
+        return new ResponseEntity<>(houses, HttpStatus.OK);
+    }
 
-
-
-
-
-
+    @GetMapping("/by-address")
+    public ResponseEntity<Iterable<House>> findAllByAddress(@RequestParam ("address") String  address ) {
+        Iterable<House> houses = (Iterable<House>) houseService.findAllByAddressContaining(address);
+        return new ResponseEntity<>(houses, HttpStatus.OK);
+    }
 
 
 }
