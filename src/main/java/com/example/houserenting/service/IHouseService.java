@@ -14,6 +14,6 @@ public interface IHouseService extends IGeneralService<House>{
 
     Iterable<House> findAllByNameContainingAndPriceBetween(@Param("name") String name, @Param("from") int from, @Param("to") int to);
 
-
+    Iterable<House> findAllByIdUserOwner(@Param("id") Long id);
 
 }
