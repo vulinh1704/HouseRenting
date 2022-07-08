@@ -72,8 +72,8 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
         http.csrf().ignoringAntMatchers("/**");
         http.httpBasic().authenticationEntryPoint(restServicesEntryPoint());
         http.authorizeRequests()
-                .antMatchers("/login", "/register", "/hello","/house/**","/oder/**").permitAll()
-                .antMatchers("/users/**","/images").access("hasRole('ROLE_USER')")
+                .antMatchers("/login", "/register", "/hello","/house/**","/oder/**","/images/**").permitAll()
+                .antMatchers("/users/**").access("hasRole('ROLE_USER')")
                 .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
 //                .antMatchers(HttpMethod.GET
 //                        ).access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")

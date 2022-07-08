@@ -36,6 +36,7 @@ public class ImageService implements IimageService {
         return Optional.empty();
     }
 
+
     @Override
     public Iterable<Image> findAllByIdHouse(Long id) {
         return imageRepository.findAllByIdHouse(id);

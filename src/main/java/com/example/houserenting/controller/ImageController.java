@@ -26,7 +26,7 @@ public class ImageController {
         return new ResponseEntity(images, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/house/{id}")
     public ResponseEntity<Iterable<Image>> findAllHouseId(@PathVariable("id") Long id) {
         Iterable<Image> images = imageService.findAllByIdHouse(id);
         return new ResponseEntity(images, HttpStatus.OK);
