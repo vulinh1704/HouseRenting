@@ -1,5 +1,4 @@
 package com.example.houserenting.controller;
-
 import com.example.houserenting.model.JwtResponse;
 import com.example.houserenting.model.Role;
 import com.example.houserenting.model.User;
@@ -19,34 +18,25 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-
 @RestController
 @PropertySource("classpath:application.properties")
 @CrossOrigin("*")
 public class UserController {
     @Autowired
     private Environment env;
-
     @Autowired
     private AuthenticationManager authenticationManager;
-
-
     @Autowired
     private JwtService jwtService;
-
     @Autowired
     private UserService userService;
     @Autowired
     private RoleService roleService;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-
     @GetMapping("/users")
     public ResponseEntity<Iterable<User>> showAllUser() {
         Iterable<User> users = userService.findAll();
@@ -92,15 +82,12 @@ public class UserController {
     public ResponseEntity<?> login(@RequestBody User user) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
         String jwt = jwtService.generateTokenLogin(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         User currentUser = userService.findByUsername(user.getUsername());
         return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(), userDetails.getAuthorities()));
     }
-
     @GetMapping("/hello")
     public ResponseEntity<String> hello(){
         return new ResponseEntity("Hello World", HttpStatus.OK);
@@ -111,7 +98,6 @@ public class UserController {
         Optional<User> userOptional = this.userService.findById(id);
         return userOptional.map(user -> new ResponseEntity<>(user, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-
     @PutMapping("/users/{id}")
     public ResponseEntity<User> updateUserProfile(@PathVariable Long id, @RequestBody User user) {
         Optional<User> userOptional = this.userService.findById(id);
@@ -124,7 +110,6 @@ public class UserController {
         user.setPassword(userOptional.get().getPassword());
         user.setRoles(userOptional.get().getRoles());
         user.setConfirmPassword(userOptional.get().getConfirmPassword());
-
         userService.save(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }

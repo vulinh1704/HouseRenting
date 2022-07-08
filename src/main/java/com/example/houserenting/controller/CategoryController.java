@@ -19,12 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/categories")
 public class CategoryController {
-
     @Autowired
     private CategoryService categoryService;
-
     @GetMapping
     public ResponseEntity<Iterable<House>> findAllCategory() {
         Iterable<Category> categories = categoryService.findAll();
@@ -38,6 +36,4 @@ public class CategoryController {
         }
         return new ResponseEntity(category.get(), HttpStatus.OK);
     }
-
-
 }

@@ -1,6 +1,4 @@
 package com.example.houserenting.service.impl;
-
-
 import com.example.houserenting.model.User;
 import com.example.houserenting.model.UserPrinciple;
 import com.example.houserenting.repository.UserRepository;
@@ -11,14 +9,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.Optional;
-
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
-
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) {

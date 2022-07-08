@@ -11,13 +11,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
-
 @RestController
-@RequestMapping("/house")
+@RequestMapping("/houses")
 public class HouseController {
     @Autowired
     private HouseService houseService;
-
     @GetMapping
     public ResponseEntity<Page<House>> findAllHouse(@PageableDefault(value = 10) Pageable pageable) {
         Page<House> houses = houseService.findAll(pageable);
@@ -26,8 +24,6 @@ public class HouseController {
         }
         return new ResponseEntity<>(houses, HttpStatus.OK);
     }
-
-
     @GetMapping("/{id}")
     public ResponseEntity<House> findById(@PathVariable Long id) {
         Optional<House> houseOptional = houseService.findById(id);
@@ -36,8 +32,6 @@ public class HouseController {
         }
         return new ResponseEntity<>(houseOptional.get(), HttpStatus.OK);
     }
-
-//    Cái này là hàm save thường
     @PostMapping
     public ResponseEntity<House> saveProduct ( @RequestBody House house) {
         houseService.save(house);
@@ -54,13 +48,4 @@ public class HouseController {
         houseService.save(house);
         return new ResponseEntity<>( HttpStatus.OK);
     }
-
-
-
-
-
-
-
-
-
 }

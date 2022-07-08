@@ -1,10 +1,8 @@
 package com.example.houserenting.model;
-
 import javax.persistence.*;
 import java.time.LocalDate;
-
 @Entity
-public class Oder {
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -12,30 +10,23 @@ public class Oder {
     private House idHouse;
     @ManyToOne
     private User idUser;
-
     private LocalDate startTime;
     private LocalDate endTime;
     private int total;
-
-    public Oder() {
+    public Order() {
     }
-
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
-
     public House getIdHouse() {
         return idHouse;
     }
-
     public void setIdHouse(House idHouse) {
         this.idHouse = idHouse;
     }
-
     public User getIdUser() {
         return idUser;
     }

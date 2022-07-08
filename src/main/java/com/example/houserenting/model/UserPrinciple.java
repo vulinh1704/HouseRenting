@@ -1,25 +1,17 @@
 package com.example.houserenting.model;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
 public class UserPrinciple implements UserDetails {
     private static final long serialVersionUID = 1L;
-
     private Long id;
-
     private String username;
-
     private String password;
-
     private Collection<? extends GrantedAuthority> roles;
-
     public UserPrinciple(Long id,
                          String username, String password,
                          Collection<? extends GrantedAuthority> roles) {
@@ -28,7 +20,6 @@ public class UserPrinciple implements UserDetails {
         this.password = password;
         this.roles = roles;
     }
-
     public static UserPrinciple build(User user) {
         List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
                 new SimpleGrantedAuthority(role.getName())
