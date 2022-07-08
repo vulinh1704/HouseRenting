@@ -113,6 +113,7 @@ function seeDetails(id) {
         }
     })
 }
+
 function htmlSeeDetail(house) {
     document.getElementById("main").innerHTML =
         `
@@ -171,8 +172,8 @@ function htmlSeeDetail(house) {
         `
 }
 
-function rent(){
-    if(localStorage.getItem(storageKey) === "") {
+function rent() {
+    if (localStorage.getItem(storageKey) === "") {
         document.getElementById("show_modal").innerHTML =
             `<div class="modal-content">
                     <div class="modal-header">
@@ -191,7 +192,7 @@ function rent(){
         jQuery.noConflict();
         $('#staticBackdrop').modal('show');
     }
-    if (localStorage.getItem(storageKey) !== ""){
+    if (localStorage.getItem(storageKey) !== "") {
         document.getElementById("show_modal").innerHTML =
             `<div class="modal-content">
                     <div class="modal-header">
@@ -201,13 +202,33 @@ function rent(){
                         </button>
                     </div>
                     <div class="modal-body">
-                           <p style="color: #4caf8c">Đăng nhập thành công!</p>
+                           <p style="color: #4caf8c">Nhập ngày bắt đầu</p>
+                           <input type="date" id="startTime">
+                           <p style="color: #4caf8c">Nhập ngày kết thúc</p>
+                           <input type="date" id="endTime"> 
                     </div>
                     <div class="modal-footer">
-                        <button type="button"  data-dismiss="modal">Đóng</button>
+                        <button type="button"  data-dismiss="modal" onclick="handleRent()">Thuê</button>
                     </div>
                 </div>`
         jQuery.noConflict();
         $('#staticBackdrop').modal('show');
     }
 }
+
+function handleRent() {
+    const get_day_of_time = (startTime, endTime) => {
+        let ms1 = startTime.getTime();
+        let ms2 = endTime.getTime();
+        return Math.ceil((ms2 - ms1) / (24*60*60*1000));
+    };
+    let startTime = new Date (document.getElementById("startTime").value);
+    let endTime = new Date (document.getElementById("endTime").value);
+    let aboutDays = get_day_of_time(startTime , endTime);
+    startTime = [startTime.getDate() ,startTime.getMonth(),startTime.getFullYear()].join('-');
+    console.log(startTime)
+    endTime = [endTime.getDate() ,endTime.getMonth(),endTime.getFullYear()].join('-');
+    console.log(endTime)
+    console.log(aboutDays + 'day');
+
+ }
