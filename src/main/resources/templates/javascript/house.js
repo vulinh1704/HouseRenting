@@ -130,8 +130,8 @@ function htmlSeeDetail(house) {
                 <table class="table" style="color: #eff6f2; margin-right: 30px">
                   <tbody>
                     <tr>
-                      <th scope="row">Tên căn nhà</th>
-                      <td>${house.name}</td>
+                      <th scope="row">Trạng thái</th>
+                      <td id="statusHouse"></td>
                     </tr>
                     <tr>
                       <th scope="row">Địa chỉ</th>
@@ -157,22 +157,26 @@ function htmlSeeDetail(house) {
                       <th scope="row">Loại nhà</th>
                       <td>${house.idCategory.name}</td>
                     </tr>
+                    
                     <tr>
                       <th scope="row">Chủ sở hữu</th>
                       <td>${house.idUserOwner.username}</td>
                     </tr>
                     <tr>
                       <th scope="row">Quất ngay</th>
-                      <td><button style="background: #6bb4e8 ; width: 30%;border-radius: 50px" onclick="rent()">Đặt</button></td>
+                      <td><button style="background: #6bb4e8 ; width: 30%;border-radius: 50px" onclick="rent(${house.id} , ${house.price}, ${house.status})">Đặt</button></td>
                     </tr>
                   </tbody>
                 </table>
             </div>
         </div>
         `
+    if(house.status === 1){document.getElementById("statusHouse").innerHTML = `Sẵn sàng`}
+    if(house.status === 2){document.getElementById("statusHouse").innerHTML = `Đang được thuê`}
+    if(house.status === 3){document.getElementById("statusHouse").innerHTML = `Đang sửa`}
 }
 
-function rent() {
+function rent(idHouse, price, status) {
     if (localStorage.getItem(storageKey) === "") {
         document.getElementById("show_modal").innerHTML =
             `<div class="modal-content">
@@ -192,7 +196,44 @@ function rent() {
         jQuery.noConflict();
         $('#staticBackdrop').modal('show');
     }
-    if (localStorage.getItem(storageKey) !== "") {
+     else if (status === 2) {
+        document.getElementById("show_modal").innerHTML =
+            `<div class="modal-content">
+                    <div class="modal-header">
+                        <h5>Thuê ngay</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="text-align: right;">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                           <p style="color: #4caf8c">Hiện tại nhà đang được thuê đến ngày vui lòng trở lại sau!</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  data-dismiss="modal">OK</button>
+                    </div>
+                </div>`
+        jQuery.noConflict();
+        $('#staticBackdrop').modal('show');
+    }
+    else if (status === 3) {
+        document.getElementById("show_modal").innerHTML =
+            `<div class="modal-content">
+                    <div class="modal-header">
+                        <h5>Thuê ngay</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="text-align: right;">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                           <p style="color: #4caf8c">Hiện tại nhà đang được sửa vui lòng quay trở lại sau!</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  data-dismiss="modal">OK</button>
+                    </div>
+                </div>`
+        jQuery.noConflict();
+        $('#staticBackdrop').modal('show');
+    } else if (localStorage.getItem(storageKey) !== "") {
         document.getElementById("show_modal").innerHTML =
             `<div class="modal-content">
                     <div class="modal-header">
@@ -208,7 +249,7 @@ function rent() {
                            <input type="date" id="endTime"> 
                     </div>
                     <div class="modal-footer">
-                        <button type="button"  data-dismiss="modal" onclick="handleRent()">Thuê</button>
+                        <button type="button"  data-dismiss="modal" onclick="handleRent(${idHouse} , ${price} , ${status})">Thuê</button>
                     </div>
                 </div>`
         jQuery.noConflict();
@@ -216,19 +257,73 @@ function rent() {
     }
 }
 
-function handleRent() {
-    const get_day_of_time = (startTime, endTime) => {
-        let ms1 = startTime.getTime();
-        let ms2 = endTime.getTime();
-        return Math.ceil((ms2 - ms1) / (24*60*60*1000));
-    };
-    let startTime = new Date (document.getElementById("startTime").value);
-    let endTime = new Date (document.getElementById("endTime").value);
-    let aboutDays = get_day_of_time(startTime , endTime);
-    startTime = [startTime.getDate() ,startTime.getMonth(),startTime.getFullYear()].join('-');
-    console.log(startTime)
-    endTime = [endTime.getDate() ,endTime.getMonth(),endTime.getFullYear()].join('-');
-    console.log(endTime)
-    console.log(aboutDays + 'day');
+function handleRent(id, price, status) {
+        const get_day_of_time = (startTime, endTime) => {
+            let ms1 = startTime.getTime();
+            let ms2 = endTime.getTime();
+            return Math.ceil((ms2 - ms1) / (24 * 60 * 60 * 1000));
+        };
+        let startTime = new Date(document.getElementById("startTime").value);
+        let endTime = new Date(document.getElementById("endTime").value);
+        let aboutDays = get_day_of_time(startTime, endTime);
+        startTime = [startTime.getDate(), startTime.getMonth(), startTime.getFullYear()].join('-');
+        endTime = [endTime.getDate(), endTime.getMonth(), endTime.getFullYear()].join('-');
+        let idUser = parseInt(localStorage.getItem(storageKeyId));
+        let total = price * aboutDays;
+        let orderr = {
+            idHouse: {
+                id : id
+            },
+            idUser: {
+                id : idUser
+            },
+            startTime: startTime,
+            endTime: endTime,
+            total: total
+        }
+        $.ajax({
+            headers:{
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + localStorage.getItem(storageKey)
+            },
+            type: "POST",
+            url: "http://localhost:8080/oder",
+            data: JSON.stringify(orderr),
+            success: function () {
+                alert('thành công')
+            }, error: function (error) {
+                console.log(error)
+            }
+        })
+    editStatus(id)
+}
 
- }
+function editStatus(idHouse){
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/house/" + idHouse,
+        success: function (house) {
+            house['status'] = 2;
+            $.ajax({
+                headers:{
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + localStorage.getItem(storageKey)
+                },
+                type: "PUT",
+                url: "http://localhost:8080/house/" + idHouse,
+                data: JSON.stringify(house),
+                success: function () {
+                    seeDetails(idHouse)
+                }, error: function (error) {
+                    console.log(error)
+                }
+            })
+        }, error: function (error) {
+            console.log(error)
+        }
+    })
+}
+
+
