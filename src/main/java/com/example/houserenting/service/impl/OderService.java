@@ -35,4 +35,14 @@ public class OderService implements IOrderService {
     public Optional<Orderr> findById(Long id) {
         return oderRepository.findById(id);
     }
+
+    @Override
+    public Optional<Orderr> findAllByIdHouse(Long id) {
+        return oderRepository.findAllByIdHouse(id);
+    }
+
+    @Override
+    public Iterable<Orderr> findAllByIdUser(Long id) {
+        return oderRepository.findAllByIdUser(id);
+    }
 }

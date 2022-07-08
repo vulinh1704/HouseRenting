@@ -85,6 +85,19 @@ public class HouseController {
         return new ResponseEntity<>(houses, HttpStatus.OK);
     }
 
+//    @PutMapping("/{id}")
+//    public ResponseEntity<House> updateStatus (@PathVariable Long id,@RequestBody House house) {
+//        Optional<House> houseOptional = houseService.findById(id);
+//        if (!houseOptional.isPresent()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        houseOptional.get().getStatus();
+//        houseService.save(house);
+//        return new ResponseEntity<>( HttpStatus.OK);
+//    }
+
+
+
 
 
 }
