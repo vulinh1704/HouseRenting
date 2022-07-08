@@ -18,14 +18,18 @@ public interface HouseRepository extends JpaRepository<House,Long> {
             "where id_category_id = ?",nativeQuery = true)
     Iterable<House> findAllByIdCategory(@Param("id") Long id );
 
-
-
     @Query (value = "select * from houserenting.house " +
             "where name like ? or (price between ? and ?)",nativeQuery = true )
     Iterable<House> findAllByNameContainingAndPriceBetween(@Param("name") String name,@Param("from") int from,@Param("to") int to);
 
 
     Iterable<House> findAllByAddressContaining(String address);
+
+    @Query (value = "select *\n" +
+            "from house join user_role r on house.id_user_owner_id = r.role_id\n" +
+            "            join user_table us on us.id = r.user_id\n" +
+            "where user_id =?",nativeQuery = true )
+    Iterable<House> findAllByIdUserOwner(@Param("id") Long id);
 
 
 

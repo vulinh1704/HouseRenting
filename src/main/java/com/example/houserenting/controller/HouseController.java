@@ -28,7 +28,6 @@ public class HouseController {
         return new ResponseEntity<>(houses, HttpStatus.OK);
     }
 
-
     @GetMapping("/{id}")
     public ResponseEntity<House> findById(@PathVariable Long id) {
         Optional<House> houseOptional = houseService.findById(id);
@@ -77,6 +76,12 @@ public class HouseController {
     @GetMapping("/by-price-between-name")
     public ResponseEntity<Iterable<House>> findAllByPriceByName(@RequestParam String name,@RequestParam int from,@RequestParam int to) {
         Iterable<House> houses = houseService.findAllByNameContainingAndPriceBetween(name, from, to);
+        return new ResponseEntity<>(houses, HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity< Iterable<House> > findByIdUserOwner(@PathVariable Long id) {
+        Iterable<House> houses = houseService.findAllByIdUserOwner(id);
         return new ResponseEntity<>(houses, HttpStatus.OK);
     }
 
