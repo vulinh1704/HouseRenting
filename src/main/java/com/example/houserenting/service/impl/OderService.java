@@ -1,7 +1,8 @@
 package com.example.houserenting.service.impl;
 
-import com.example.houserenting.model.Order;
-import com.example.houserenting.service.OrderService;
+import com.example.houserenting.model.Orderr;
+import com.example.houserenting.repository.OderRepository;
+import com.example.houserenting.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,28 +11,28 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class OderService implements OrderService {
+public class OderService implements IOrderService {
 
     @Autowired
-    private OrderService orderService;
+   private OderRepository oderRepository;
 
     @Override
-    public Page<Order> findAll(Pageable pageable) {
+    public Page<Orderr> findAll(Pageable pageable) {
         return null;
     }
 
     @Override
-    public Iterable<Order> findAll() {
-        return orderService.findAll();
+    public Iterable<Orderr> findAll() {
+        return oderRepository.findAll();
     }
 
     @Override
-    public void save(Order oder) {
-        orderService.save(oder);
+    public void save(Orderr oder) {
+        oderRepository.save(oder);
     }
 
     @Override
-    public Optional<Order> findById(Long id) {
-        return Optional.empty();
+    public Optional<Orderr> findById(Long id) {
+        return oderRepository.findById(id);
     }
 }

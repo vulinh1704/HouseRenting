@@ -2,7 +2,7 @@ package com.example.houserenting.model;
 import javax.persistence.*;
 import java.time.LocalDate;
 @Entity
-public class Order {
+public class Orderr {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -10,10 +10,10 @@ public class Order {
     private House idHouse;
     @ManyToOne
     private User idUser;
-    private LocalDate startTime;
-    private LocalDate endTime;
+    private String startTime;
+    private String endTime;
     private int total;
-    public Order() {
+    public Orderr() {
     }
     public Long getId() {
         return id;
@@ -35,19 +35,19 @@ public class Order {
         this.idUser = idUser;
     }
 
-    public LocalDate getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDate startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public LocalDate getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalDate endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 
