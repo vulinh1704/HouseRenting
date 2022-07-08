@@ -95,7 +95,7 @@ function showRe_Log() {
         -moz-osx-font-smoothing: grayscale;
     }
 </style>
-<div class="login-page">
+<div class="login-page" style="height: 100vh">
   <div class="form" id="form">
     <div class="login-form">
     </div>
@@ -210,6 +210,8 @@ function loginNotice(flag) {
                         <button type="button"  data-dismiss="modal">Đóng</button>
                     </div>
                 </div>`
+        formNav()
+        showUser(localStorage.getItem(storageKeyId));
         jQuery.noConflict();
         $('#staticBackdrop').modal('show');
     }
@@ -253,4 +255,55 @@ function registrationNotice() {
                 </div>`
     jQuery.noConflict();
     $('#staticBackdrop').modal('show');
+}
+
+function showUser(id) {
+    $.ajax({
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem(storageKey)
+        },
+        type: "GET",
+        url: "http://localhost:8080/users/" + id,
+        success: function (user) {
+            console.log(user)
+            document.getElementById("user").innerHTML = `<a class="nav-link"><i class="fa-solid fa-user-astronaut"></i> ${user.username}</a>`
+        }, error: function (error) {
+            console.log(error)
+        }
+    })
+}
+
+function formLogout() {
+    document.getElementById("show_modal").innerHTML =
+        `<div class="modal-content">
+                    <div class="modal-header">
+                        <h5>Thông Báo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="text-align: right;">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                           <p style="color: #4caf8c">Bạn muốn đăng xuất ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  data-dismiss="modal" onclick="logout()">Đồng ý</button></span>
+                    </div>
+                </div>`
+    jQuery.noConflict();
+    $('#staticBackdrop').modal('show');
+}
+function logout() {
+    localStorage.setItem(storageKey , "");
+    localStorage.setItem(storageKeyId , "");
+    formNav()
+}
+
+function formNav() {
+    if(localStorage.getItem(storageKey) !== ""){
+        document.getElementById("log").innerHTML = `<a class="nav-link" onclick="formLogout()"><i class="fa-solid fa-right-from-bracket"></i> ĐĂNG XUẤT</a>`
+        htmlHouse()
+    } else {
+        document.getElementById("log").innerHTML = `<a class="nav-link" onclick="showRe_Log()"><i class="fa-solid fa-right-to-bracket"></i> ĐĂNG NHẬP</a>`
+        document.getElementById("user").innerHTML = ``
+    }
 }

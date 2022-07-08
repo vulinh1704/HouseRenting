@@ -116,7 +116,7 @@ function seeDetails(id) {
 function htmlSeeDetail(house) {
     document.getElementById("main").innerHTML =
         `
-        <div class="container-fluid p-0">
+        <div class="container-fluid p-0" style="height: 90vh">
             <div class="row" style="background: #4caf8c;width: 100%">
                 <h1 style="color: #FFFFFF;margin-left: 35%;"><img src="https://firebasestorage.googleapis.com/v0/b/comhut-6cb9a.appspot.com/o/output-onlinegiftools.gif?alt=media&token=6cdc0287-cd96-411d-bc4e-be950e86fa8e" style="width: 60px;height: 60px">
                 XEM CHI TIẾT
@@ -125,15 +125,89 @@ function htmlSeeDetail(house) {
             <div class="row" style="background: #4caf8c;width: 100%">
                 <h1 style="color: #FFFFFF;margin-left: 20%;">CHÀO MỪNG BẠN ĐẾN ${house.name} !!</h1>
             </div>
-            <div class="row" id="houses">
-                
-            </div>
-            <div class="row mt-5">
-                <div class="col-4"></div>
-                <div class="col-4" id="Pagination" style="background: #4caf8c"></div>
-                <div class="col-4"></div>
+            <div class="row mt-4" id="houseDetail" >
+                <table class="table" style="color: #eff6f2; margin-right: 30px">
+                  <tbody>
+                    <tr>
+                      <th scope="row">Tên căn nhà</th>
+                      <td>${house.name}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Địa chỉ</th>
+                      <td>${house.address}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Số phòng ngủ</th>
+                      <td>${house.bedroom}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Số phòng tắm</th>
+                      <td>${house.bathroom}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Mô tả</th>
+                      <td>${house.description}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Giá tiền</th>
+                      <td>${house.price}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Loại nhà</th>
+                      <td>${house.idCategory.name}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Chủ sở hữu</th>
+                      <td>${house.idUserOwner.username}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Quất ngay</th>
+                      <td><button style="background: #6bb4e8 ; width: 30%;border-radius: 50px" onclick="rent()">Đặt</button></td>
+                    </tr>
+                  </tbody>
+                </table>
             </div>
         </div>
-        
         `
+}
+
+function rent(){
+    if(localStorage.getItem(storageKey) === "") {
+        document.getElementById("show_modal").innerHTML =
+            `<div class="modal-content">
+                    <div class="modal-header">
+                        <h5>Thuê ngay</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="text-align: right;">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                           <p style="color: #4caf8c">Bạn chưa đăng nhập ? Nhấn OK để chuyển đến đăng nhập !</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  data-dismiss="modal" onclick="showRe_Log()">OK</button>
+                    </div>
+                </div>`
+        jQuery.noConflict();
+        $('#staticBackdrop').modal('show');
+    }
+    if (localStorage.getItem(storageKey) !== ""){
+        document.getElementById("show_modal").innerHTML =
+            `<div class="modal-content">
+                    <div class="modal-header">
+                        <h5>Thuê ngay</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="text-align: right;">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                           <p style="color: #4caf8c">Đăng nhập thành công!</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>`
+        jQuery.noConflict();
+        $('#staticBackdrop').modal('show');
+    }
 }
