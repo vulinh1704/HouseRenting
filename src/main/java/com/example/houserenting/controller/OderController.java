@@ -45,4 +45,18 @@ public class OderController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @GetMapping("/byOrder")
+    public ResponseEntity<Orderr> findByIdHouse(@RequestParam Long id) {
+        Optional<Orderr> orders = oderService.findAllByIdHouse(id);
+        return new ResponseEntity(orders, HttpStatus.OK);
+    }
+
+    @GetMapping("/byIdUser/{id}")
+    public ResponseEntity<Orderr> findByIdUser(@PathVariable Long id) {
+        Iterable<Orderr> orders = oderService.findAllByIdUser(id);
+        return new ResponseEntity(orders, HttpStatus.OK);
+    }
+
+
+
 }
