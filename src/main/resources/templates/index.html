@@ -10,8 +10,8 @@
 </head>
 <body>
 <div id="content" style="font-family: 'Bungee Inline', cursive;">
-    <header style="height: 100vh;">
-        <div class="container-fulild p-0">
+    <header style="height: 100%;">
+        <div class="container-fluid p-0">
             <nav class="navbar navbar-expand-lg">
                 <a class="navbar-brand" onclick="showHome()"><i class="fa-solid fa-house-chimney-window fa-2x mx-2"></i>THIÊN ĐƯỜNG
                     NHÀ</a>
@@ -23,14 +23,14 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <div class="mr-auto"></div>
                     <ul class="navbar-nav">
-                        <li class="nav-item active">
-                            <a class="nav-link" onclick="showRe_Log()">ĐĂNG NHẬP</a>
+                        <li class="nav-item active" id="log">
+                            <a class="nav-link" onclick="showRe_Log()"><i class="fa-solid fa-right-to-bracket"></i> ĐĂNG NHẬP</a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">ĐĂNG NHÀ</a>
+                            <a class="nav-link" href="#"><i class="fa-solid fa-earth-asia"></i> ĐĂNG NHÀ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">ĐẶT NHÀ</a>
+                            <a class="nav-link" onclick="htmlHouse()"><i class="fa-solid fa-house-flag"></i> ĐẶT NHÀ</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link" href="#" id="navbarDropdown" role="button"
@@ -45,12 +45,15 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link">THÔNG TIN NHÀ</a>
+                            <a class="nav-link"><i class="fa-solid fa-circle-question"></i> THÔNG TIN NHÀ</a>
+                        </li>
+                        <li class="nav-item" id="user">
                         </li>
                     </ul>
                 </div>
             </nav>
         </div>
+
         <div class="container text-center" id="main">
         </div>
         <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -80,5 +83,6 @@
 <script src="javascript/upload.js"></script>
 <script src="javascript/home.js"></script>
 <script src="javascript/re_log.js"></script>
+<script src="javascript/house.js"></script>
 </body>
 </html>

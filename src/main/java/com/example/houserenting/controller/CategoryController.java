@@ -11,18 +11,18 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/categories")
+@CrossOrigin("*")
+@RequestMapping("/category")
 public class CategoryController {
+
     @Autowired
     private CategoryService categoryService;
+
     @GetMapping
     public ResponseEntity<Iterable<House>> findAllCategory() {
         Iterable<Category> categories = categoryService.findAll();
@@ -36,4 +36,6 @@ public class CategoryController {
         }
         return new ResponseEntity(category.get(), HttpStatus.OK);
     }
+
+
 }
