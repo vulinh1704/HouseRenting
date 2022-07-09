@@ -4,6 +4,8 @@
 }
 header {
     background: var(--bggradient);
+    width: auto;
+    height: auto;
 }
 header a {
     color: white;

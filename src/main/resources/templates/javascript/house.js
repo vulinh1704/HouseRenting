@@ -126,7 +126,7 @@ function htmlSeeDetail(house) {
             <div class="row" style="background: #4caf8c;width: 100%">
                 <h1 style="color: #FFFFFF;margin-left: 20%;">CHÀO MỪNG BẠN ĐẾN ${house.name} !!</h1>
             </div>
-            <div class="row mt-4" id="houseDetail" >
+            <div class="row mt-4" id="houseDetail">
                 <table class="table" style="color: #eff6f2; margin-right: 30px">
                   <tbody>
                     <tr>
@@ -139,11 +139,11 @@ function htmlSeeDetail(house) {
                     </tr>
                     <tr>
                       <th scope="row">Số phòng ngủ</th>
-                      <td>${house.bedroom}</td>
+                      <td>${house.bedroom}  <i class="fa-solid fa-bed-pulse"></i></td>
                     </tr>
                     <tr>
-                      <th scope="row">Số phòng tắm</th>
-                      <td>${house.bathroom}</td>
+                      <th scope="row"> Số phòng tắm</th>
+                      <td>${house.bathroom}  <i class="fa-solid fa-shower"></i></td>
                     </tr>
                     <tr>
                       <th scope="row">Mô tả</th>
@@ -151,7 +151,7 @@ function htmlSeeDetail(house) {
                     </tr>
                     <tr>
                       <th scope="row">Giá tiền</th>
-                      <td>${house.price}</td>
+                      <td>${house.price}  <i class="fa-solid fa-sack-dollar"></i></td>
                     </tr>
                     <tr>
                       <th scope="row">Loại nhà</th>
@@ -246,7 +246,9 @@ function rent(idHouse, price, status) {
                            <p style="color: #4caf8c">Nhập ngày bắt đầu</p>
                            <input type="date" id="startTime">
                            <p style="color: #4caf8c">Nhập ngày kết thúc</p>
-                           <input type="date" id="endTime"> 
+                           <input type="date" id="endTime" onchange="calculateTotalAmount(${price})"> 
+                           <p></p>
+                           <p style="color: #4caf8c" id="money"></p>
                     </div>
                     <div class="modal-footer">
                         <button type="button"  data-dismiss="modal" onclick="handleRent(${idHouse} , ${price} , ${status})">Thuê</button>
@@ -255,6 +257,19 @@ function rent(idHouse, price, status) {
         jQuery.noConflict();
         $('#staticBackdrop').modal('show');
     }
+}
+
+function calculateTotalAmount(price){
+    const get_day_of_time = (startTime, endTime) => {
+        let ms1 = startTime.getTime();
+        let ms2 = endTime.getTime();
+        return Math.ceil((ms2 - ms1) / (24 * 60 * 60 * 1000));
+    };
+    let startTime = new Date(document.getElementById("startTime").value);
+    let endTime = new Date(document.getElementById("endTime").value);
+    let aboutDays = get_day_of_time(startTime, endTime);
+    let total = price * aboutDays;
+    document.getElementById("money").innerHTML = `Tổng tiền : ${total} <i class="fa-solid fa-money-bill-transfer"></i>`
 }
 
 function handleRent(id, price, status) {
@@ -291,20 +306,21 @@ function handleRent(id, price, status) {
             url: "http://localhost:8080/oder",
             data: JSON.stringify(orderr),
             success: function () {
-                alert('thành công')
+                let sta = 2;
+                editStatus(id , sta);
             }, error: function (error) {
                 console.log(error)
             }
         })
-    editStatus(id)
+
 }
 
-function editStatus(idHouse){
+function editStatus(idHouse , sta){
     $.ajax({
         type: "GET",
         url: "http://localhost:8080/house/" + idHouse,
         success: function (house) {
-            house['status'] = 2;
+            house['status'] = sta;
             $.ajax({
                 headers:{
                     'Accept': 'application/json',

@@ -296,6 +296,7 @@ function logout() {
     localStorage.setItem(storageKey , "");
     localStorage.setItem(storageKeyId , "");
     formNav()
+    showRe_Log()
 }
 
 function formNav() {

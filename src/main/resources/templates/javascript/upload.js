@@ -1,4 +1,3 @@
-
 var image = '';
 // firebase bucket name
 // REPLACE WITH THE ONE YOU CREATE
@@ -8,6 +7,7 @@ var fbBucketName = 'images';
 var uploader = document.getElementById('uploader');
 var fileButton = document.getElementById('fileButton');
 let storageKeyImg = 'img';
+
 // listen for file selection
 function upload(e) {
 
@@ -62,7 +62,7 @@ function upload(e) {
             // Upload completed successfully, now we can get the download URL
             // save this link somewhere, e.g. put it in an input field
             let downloadURL = uploadTask.snapshot.downloadURL;
-            localStorage.setItem(storageKeyImg , downloadURL)
+            localStorage.setItem(storageKeyImg, downloadURL)
             alert(downloadURL)
             let divLocation = document.getElementById("imgDiv");
             let imgElement = document.createElement("img");
@@ -70,4 +70,8 @@ function upload(e) {
             console.log('pic ==', image)
             divLocation.append(imgElement);
         });
+}
+
+function saveImage() {
+
 }

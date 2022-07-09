@@ -11,7 +11,7 @@
 </head>
 <body onload="logout()">
 <div id="content" style="font-family: 'Bungee Inline', cursive;">
-    <header style="height: 100%;">
+    <header>
         <div class="container-fluid p-0">
             <nav class="navbar navbar-expand-lg">
                 <a class="navbar-brand" onclick="showHome()"><i class="fa-solid fa-house-chimney-window fa-2x mx-2"></i>THIÊN ĐƯỜNG
@@ -28,7 +28,7 @@
                             <a class="nav-link" onclick="showRe_Log()"><i class="fa-solid fa-right-to-bracket"></i> ĐĂNG NHẬP</a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="#"><i class="fa-solid fa-earth-asia"></i> ĐĂNG NHÀ</a>
+                            <a class="nav-link" onclick="htmlPostHouse()"><i class="fa-solid fa-earth-asia"></i> ĐĂNG NHÀ</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" onclick="htmlHouse()"><i class="fa-solid fa-house-flag"></i> ĐẶT NHÀ</a>
@@ -36,10 +36,10 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link" href="#" id="navbarDropdown" role="button"
                                data-toggle="dropdown" aria-expanded="false">
-                                XEM THÊM
+                                <i class="fa-solid fa-arrow-pointer"></i> XEM THÊM
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">HÓA ĐƠN CỦA BẠN</a>
+                                <a class="dropdown-item" onclick="findAllOder()">HÓA ĐƠN CỦA BẠN</a>
                                 <a class="dropdown-item" href="#">gì đó</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Something else here</a>
@@ -54,7 +54,6 @@
                 </div>
             </nav>
         </div>
-
         <div class="container text-center" id="main">
         </div>
         <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -86,5 +85,6 @@
 <script src="javascript/re_log.js"></script>
 <script src="javascript/house.js"></script>
 <script src="javascript/order.js"></script>
+<script src="javascript/post_house.js"></script>
 </body>
 </html>
