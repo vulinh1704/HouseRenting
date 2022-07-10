@@ -7,7 +7,7 @@ function findAllOder() {
             type: "GET",
             url: "http://localhost:8080/oder/byIdUser/" + localStorage.getItem(storageKeyId),
             success: function (orders) {
-                console.log(orders)
+                console.log('order' , orders)
                 htmlOrder(orders);
             }, error: function (error) {
                 console.log(error)
@@ -31,7 +31,7 @@ function htmlOrder(orders) {
                 <div class="col-12">
                     <table class="table" style="color: #eff6f2; margin-right: 30px">
                             <tr>
-                                <th>Người thuê</th>
+                                <th>Bạn</th>
                                 <th>Tên nhà</th>
                                 <th>Ngày bắt đầu</th>
                                 <th>Ngày kết thúc</th>

@@ -16,8 +16,6 @@ public interface OderRepository extends JpaRepository<Orderr,Long> {
     Optional<Orderr> findAllByIdHouse(@Param("id") Long id);
 
 
-    @Query(value = "select *\n" +
-            "from houserenting.orderr join houserenting.house h on orderr.id_user_id = h.id\n" +
-            "where id_user_id = ?",nativeQuery = true)
+    @Query(value = "select * from houserenting.orderr o where o.id_user_id = ?",nativeQuery = true)
     Iterable<Orderr> findAllByIdUser(@Param("id") Long id);
 }

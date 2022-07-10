@@ -7,7 +7,7 @@ var fbBucketName = 'images';
 var uploader = document.getElementById('uploader');
 var fileButton = document.getElementById('fileButton');
 let storageKeyImg = 'img';
-
+let images = [];
 // listen for file selection
 function upload(e) {
 
@@ -62,8 +62,9 @@ function upload(e) {
             // Upload completed successfully, now we can get the download URL
             // save this link somewhere, e.g. put it in an input field
             let downloadURL = uploadTask.snapshot.downloadURL;
-            localStorage.setItem(storageKeyImg, downloadURL)
-            alert(downloadURL)
+            images.push(downloadURL)
+            localStorage.setItem(storageKeyImg , JSON.stringify(images));
+            noticeSuccessfulImg()
             let divLocation = document.getElementById("imgDiv");
             let imgElement = document.createElement("img");
             imgElement.src = downloadURL
@@ -72,6 +73,23 @@ function upload(e) {
         });
 }
 
-function saveImage() {
-
+function noticeSuccessfulImg() {
+    document.getElementById("show_modal").innerHTML =
+        `<div class="modal-content">
+                    <div class="modal-header">
+                        <h5>Thông báo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="text-align: right;">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                           <p style="color: #4caf8c">Cập nhật ảnh thành công</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  data-dismiss="modal">OK</button>
+                    </div>
+                </div>`
+    jQuery.noConflict();
+    $('#staticBackdrop').modal('show');
 }
+

@@ -43,11 +43,10 @@ public class HouseController {
         return new ResponseEntity<>(houses, HttpStatus.OK);
     }
 
-//    Cái này là hàm save thường
+
     @PostMapping
-    public ResponseEntity<House> saveProduct ( @RequestBody House house) {
-        houseService.save(house);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<House> saveProduct (@RequestBody House house) {
+        return new ResponseEntity<>(houseService.saveHouse(house) , HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")

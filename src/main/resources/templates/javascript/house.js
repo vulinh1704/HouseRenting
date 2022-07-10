@@ -47,27 +47,20 @@ function htmlCard(house) {
     let str = ""
     for (let i = 0; i < house.length; i++) {
         let idCa = "carousel" + house[i].id
-        let a = "#" + idCa;
+        let idCaTarget = "#" + idCa;
+        let cardImg = 'cardImg' + house[i].id;
         str += `
                 <div class="col-4 mt-4">
                     <div class="card" style="width: 18rem;">
                       <div id="${idCa}" class="carousel slide" data-ride="carousel">
-                          <div class="carousel-inner">
-                            <div class="carousel-item active">
-                              <img src="https://cdn.24h.com.vn/upload/2-2022/images/2022-05-25/junvu7-1653469403-325-width650height866.jpg" class="imageC">
-                            </div>
-                            <div class="carousel-item">
-                              <img src="https://i.vietgiaitri.com/2020/9/3/gai-xinh-trung-quoc-bong-dung-noi-tieng-vi-nhu-chi-em-voi-jennie-co-giong-that-khong-dbd-5205788.jpg" class="imageC">
-                            </div>
-                            <div class="carousel-item">
-                              <img src="https://anhdephd.vn/wp-content/uploads/2022/04/anh-gai-xinh-viet-nam-cute-1.jpg" class="imageC">
-                            </div>
+                          <div class="carousel-inner" id = "${cardImg}">
+                            
                           </div>
-                         <button class="carousel-control-prev" type="button" data-target="#carouselExampleControls" data-slide="prev">
+                         <button class="carousel-control-prev" type="button" data-target="${idCaTarget}" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="sr-only">Previous</span>
                           </button>
-                          <button class="carousel-control-next" type="button" data-target="${a}" data-slide="next">
+                          <button class="carousel-control-next" type="button" data-target="${idCaTarget}" data-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="sr-only">Next</span>
                           </button>
@@ -82,8 +75,10 @@ function htmlCard(house) {
                     </div>
                 </div>`
     }
-
     document.getElementById("houses").innerHTML = str;
+    for (let i = 0; i < house.length; i++) {
+        showImg(house[i].id)
+    }
 }
 
 function pagination(houses) {
@@ -171,9 +166,15 @@ function htmlSeeDetail(house) {
             </div>
         </div>
         `
-    if(house.status === 1){document.getElementById("statusHouse").innerHTML = `Sẵn sàng`}
-    if(house.status === 2){document.getElementById("statusHouse").innerHTML = `Đang được thuê`}
-    if(house.status === 3){document.getElementById("statusHouse").innerHTML = `Đang sửa`}
+    if (house.status === 1) {
+        document.getElementById("statusHouse").innerHTML = `Sẵn sàng`
+    }
+    if (house.status === 2) {
+        document.getElementById("statusHouse").innerHTML = `Đang được thuê`
+    }
+    if (house.status === 3) {
+        document.getElementById("statusHouse").innerHTML = `Đang sửa`
+    }
 }
 
 function rent(idHouse, price, status) {
@@ -195,8 +196,7 @@ function rent(idHouse, price, status) {
                 </div>`
         jQuery.noConflict();
         $('#staticBackdrop').modal('show');
-    }
-     else if (status === 2) {
+    } else if (status === 2) {
         document.getElementById("show_modal").innerHTML =
             `<div class="modal-content">
                     <div class="modal-header">
@@ -214,8 +214,7 @@ function rent(idHouse, price, status) {
                 </div>`
         jQuery.noConflict();
         $('#staticBackdrop').modal('show');
-    }
-    else if (status === 3) {
+    } else if (status === 3) {
         document.getElementById("show_modal").innerHTML =
             `<div class="modal-content">
                     <div class="modal-header">
@@ -259,7 +258,7 @@ function rent(idHouse, price, status) {
     }
 }
 
-function calculateTotalAmount(price){
+function calculateTotalAmount(price) {
     const get_day_of_time = (startTime, endTime) => {
         let ms1 = startTime.getTime();
         let ms2 = endTime.getTime();
@@ -273,56 +272,56 @@ function calculateTotalAmount(price){
 }
 
 function handleRent(id, price, status) {
-        const get_day_of_time = (startTime, endTime) => {
-            let ms1 = startTime.getTime();
-            let ms2 = endTime.getTime();
-            return Math.ceil((ms2 - ms1) / (24 * 60 * 60 * 1000));
-        };
-        let startTime = new Date(document.getElementById("startTime").value);
-        let endTime = new Date(document.getElementById("endTime").value);
-        let aboutDays = get_day_of_time(startTime, endTime);
-        startTime = [startTime.getDate(), startTime.getMonth(), startTime.getFullYear()].join('-');
-        endTime = [endTime.getDate(), endTime.getMonth(), endTime.getFullYear()].join('-');
-        let idUser = parseInt(localStorage.getItem(storageKeyId));
-        let total = price * aboutDays;
-        let orderr = {
-            idHouse: {
-                id : id
-            },
-            idUser: {
-                id : idUser
-            },
-            startTime: startTime,
-            endTime: endTime,
-            total: total
+    const get_day_of_time = (startTime, endTime) => {
+        let ms1 = startTime.getTime();
+        let ms2 = endTime.getTime();
+        return Math.ceil((ms2 - ms1) / (24 * 60 * 60 * 1000));
+    };
+    let startTime = new Date(document.getElementById("startTime").value);
+    let endTime = new Date(document.getElementById("endTime").value);
+    let aboutDays = get_day_of_time(startTime, endTime);
+    startTime = [startTime.getDate(), startTime.getMonth(), startTime.getFullYear()].join('-');
+    endTime = [endTime.getDate(), endTime.getMonth(), endTime.getFullYear()].join('-');
+    let idUser = parseInt(localStorage.getItem(storageKeyId));
+    let total = price * aboutDays;
+    let orderr = {
+        idHouse: {
+            id: id
+        },
+        idUser: {
+            id: idUser
+        },
+        startTime: startTime,
+        endTime: endTime,
+        total: total
+    }
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + localStorage.getItem(storageKey)
+        },
+        type: "POST",
+        url: "http://localhost:8080/oder",
+        data: JSON.stringify(orderr),
+        success: function () {
+            let sta = 2;
+            editStatus(id, sta);
+        }, error: function (error) {
+            console.log(error)
         }
-        $.ajax({
-            headers:{
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + localStorage.getItem(storageKey)
-            },
-            type: "POST",
-            url: "http://localhost:8080/oder",
-            data: JSON.stringify(orderr),
-            success: function () {
-                let sta = 2;
-                editStatus(id , sta);
-            }, error: function (error) {
-                console.log(error)
-            }
-        })
+    })
 
 }
 
-function editStatus(idHouse , sta){
+function editStatus(idHouse, sta) {
     $.ajax({
         type: "GET",
         url: "http://localhost:8080/house/" + idHouse,
         success: function (house) {
             house['status'] = sta;
             $.ajax({
-                headers:{
+                headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                     Authorization: 'Bearer ' + localStorage.getItem(storageKey)
@@ -342,4 +341,28 @@ function editStatus(idHouse , sta){
     })
 }
 
+function showImg(idHouse) {
+    let str = ``
+    let cardImg = 'cardImg' + idHouse;
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/images/" + idHouse,
+        success: function (images) {
+            for (let i = 0; i < images.length; i++) {
+                if (i === 0) {
+                    str += `<div class="carousel-item active">
+                              <img src="${images[i].image}" class="imageC">
+                            </div>`
+                } else {
+                    str += `<div class="carousel-item">
+                              <img src="${images[i].image}" class="imageC">
+                            </div>`
+                }
+            }
+            document.getElementById(cardImg).innerHTML = str;
 
+        }, error: function (error) {
+            console.log(error)
+        }
+    })
+}

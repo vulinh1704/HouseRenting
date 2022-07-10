@@ -250,7 +250,7 @@ function registrationNotice() {
                            <p style="color: #4caf8c">Đăng kí thành công!</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button"  data-dismiss="modal">Đóng</button>
+                        <button type="button"  data-dismiss="modal" onclick="showRe_Log()">Đóng</button>
                     </div>
                 </div>`
     jQuery.noConflict();
@@ -292,9 +292,11 @@ function formLogout() {
     jQuery.noConflict();
     $('#staticBackdrop').modal('show');
 }
+
 function logout() {
     localStorage.setItem(storageKey , "");
     localStorage.setItem(storageKeyId , "");
+    localStorage.setItem(storageKeyImg , "");
     formNav()
     showRe_Log()
 }
