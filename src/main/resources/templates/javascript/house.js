@@ -164,7 +164,8 @@ function htmlSeeDetail(house) {
                     </tr>
                     <tr>
                       <th scope="row">Quất ngay</th>
-                      <td><button style="background: #6bb4e8 ; width: 30%;border-radius: 50px" onclick="rent(${house.id} , ${house.price}, ${house.status})">Đặt</button></td>
+                      <td><button style="background: #6bb4e8 ;
+                       width: 30%;border-radius: 50px" onclick="rent(${house.id} , ${house.price}, ${house.status})">Đặt</button></td>
                     </tr>
                   </tbody>
                 </table>
@@ -307,6 +308,8 @@ function editStatus(idHouse){
             house['status'] = 2;
             $.ajax({
                 headers:{
+                    
+                    
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                     Authorization: 'Bearer ' + localStorage.getItem(storageKey)

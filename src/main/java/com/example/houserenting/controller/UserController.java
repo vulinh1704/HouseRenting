@@ -100,17 +100,32 @@ public class UserController {
     }
     @PutMapping("/users/{id}")
     public ResponseEntity<User> updateUserProfile(@PathVariable Long id, @RequestBody User user) {
-        Optional<User> userOptional = this.userService.findById(id);
-        if (!userOptional.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        user.setId(userOptional.get().getId());
-        user.setUsername(userOptional.get().getUsername());
-        user.setEnabled(userOptional.get().isEnabled());
-        user.setPassword(userOptional.get().getPassword());
-        user.setRoles(userOptional.get().getRoles());
-        user.setConfirmPassword(userOptional.get().getConfirmPassword());
-        userService.save(user);
+//        Optional<User> userOptional = this.userService.findById(id);
+//        if (!userOptional.isPresent()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        user.setId(userOptional.get().getId());
+//        user.setUsername(userOptional.get().getUsername());
+//        user.setEnabled(userOptional.get().isEnabled());
+//        user.setPassword(userOptional.get().getPassword());
+//        user.setRoles(userOptional.get().getRoles());
+//        user.setConfirmPassword(userOptional.get().getConfirmPassword());
+//
+//        userService.save(user);
+//        return new ResponseEntity<>(user, HttpStatus.OK);
+        user.setId(id);
+        user.setRoles(userService.findById(id).get().getRoles());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setUsername(userService.findById(id).get().getUsername());
+        user.setConfirmPassword(user.getPassword());
+//        if (user.getAvatar()==null){
+//            user.setAvatar(userService.findById(id).get().getAvatar());
+//            userService.save(user);
+//        }
+//        else {
+            userService.save(user);
+//        }
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
-}
+
+    }

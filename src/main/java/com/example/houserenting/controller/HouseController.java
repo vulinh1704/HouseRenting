@@ -19,6 +19,8 @@ public class HouseController {
     @Autowired
     private HouseService houseService;
 
+//    HouseService houseService = new HouseService();
+
     @GetMapping
     public ResponseEntity<Page<House>> findAllHouse(@PageableDefault(value = 6)  Pageable pageable) {
         Page<House> houses = houseService.findAll(pageable);
