@@ -65,4 +65,9 @@ public class HouseService implements IHouseService {
     public House saveHouse(House house){
         return houseRepository.save(house);
     }
+
+    public Iterable<House> findByIdUserOwnerAndStatus(Long id) {
+        return houseRepository.findAllByIdUserOwnerAndStatus(id);
+    }
+
 }

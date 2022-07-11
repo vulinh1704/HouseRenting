@@ -34,7 +34,7 @@ function htmlOrder(orders) {
                                 <th>Tên nhà</th>
                                 <th>Ngày bắt đầu</th>
                                 <th>Ngày kết thúc</th>
-                                <th>Tiền thu được</th>
+                                <th>Tiền phải nộp</th>
                                 <th>Trạng thái</th>
                                 <th>Hủy đơn</th>
                             </tr>
@@ -130,3 +130,84 @@ function editStatusOrder(idHouse , sta){
         }
     })
 }
+
+
+
+//Danh sách nhà đang được thuê của bạn
+
+function findByIdOwnerAndStatus(){
+    if (localStorage.getItem(storageKeyId) === "") {
+        noticeToLogin()
+    }
+    if (localStorage.getItem(storageKeyId) !== "") {
+        $.ajax({
+            Authorization: {
+                Authorization: 'Bearer ' + localStorage.getItem(storageKey)
+            },
+            type: "GET",
+            url: "http://localhost:8080/house/owner/" + localStorage.getItem(storageKeyId),
+            success: function (house) {
+                console.log(house)
+                htmlOrderMyHouse(house);
+            }, error: function (error) {
+                console.log(error)
+            }
+        })
+    }
+}
+
+function htmlOrderMyHouse(house){
+    document.getElementById("main").innerHTML =
+        `
+        <div class="container-fluid p-0">
+            <div class="row" style="background: #4caf8c;width: 100%">
+                <h1 style="color: #FFFFFF;margin-left: 27%;"><img src="https://firebasestorage.googleapis.com/v0/b/comhut-6cb9a.appspot.com/o/output-onlinegiftools.gif?alt=media&token=6cdc0287-cd96-411d-bc4e-be950e86fa8e" style="width: 60px;height: 60px">DANH SÁCH THUÊ NHÀ
+                <img src="https://firebasestorage.googleapis.com/v0/b/comhut-6cb9a.appspot.com/o/output-onlinegiftools.gif?alt=media&token=6cdc0287-cd96-411d-bc4e-be950e86fa8e" style="width: 60px;height: 60px"></h1>
+            </div>
+            <div class="row" style="background: #4caf8c;width: 100%">
+                <h1 style="color: #FFFFFF;margin-left: 31%;">NHÀ ĐANG ĐƯỢC THUÊ !!</h1>
+            </div>
+            <div class="row mt-3" style="height: 90vh">
+                <div class="col-12">
+                    <table class="table" style="color: #eff6f2; margin-right: 30px">
+                            <tr>
+                                <th>Người đang thuê</th>
+                                <th>Tên nhà</th>
+                                <th>Ngày bắt đầu</th>
+                                <th>Ngày kết thúc</th>
+                                <th>Tiền thu được</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                            <tbody id="orderMyHouseList">
+                           </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        `
+    let str =  ``
+    for (let i = 0; i < house.length; i++) {
+        $.ajax({
+            Authorization: {
+                Authorization: 'Bearer ' + localStorage.getItem(storageKey)
+            },
+            type: "GET",
+            url: "http://localhost:8080/oder/byOrder?id=" + house[i].id,
+            success: function (order) {
+                console.log('order =>', order)
+                str += `<tr>
+                                <th>${order.idUser.username}</th>
+                                <th>${order.idHouse.name}</th>
+                                <th>${order.startTime}</th>
+                                <th>${order.endTime}</th>
+                                <th>${order.total}</th>
+                                <th>Đang được thuê</th>
+                            </tr>`
+                document.getElementById("orderMyHouseList").innerHTML = str;
+            }, error: function (error) {
+                console.log(error)
+            }
+        })
+    }
+}
+

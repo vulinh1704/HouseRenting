@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface HouseRepository extends JpaRepository<House,Long> {
 
@@ -28,13 +30,8 @@ public interface HouseRepository extends JpaRepository<House,Long> {
     @Query (value = "select * from houserenting.house h where h.id_user_owner_id = ?",nativeQuery = true )
     Iterable<House> findAllByIdUserOwner(@Param("id") Long id);
 
+    @Query(value = "select * from house where id_user_owner_id = ? and status = 2" , nativeQuery = true)
+    Iterable<House> findAllByIdUserOwnerAndStatus(@Param("id") Long id);
 
-
-
-
-
-
-
-    
 
 }

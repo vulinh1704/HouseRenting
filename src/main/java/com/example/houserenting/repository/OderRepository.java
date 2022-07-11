@@ -10,9 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface OderRepository extends JpaRepository<Orderr,Long> {
-    @Query(value = "select *\n" +
-            "from houserenting.orderr join houserenting.house o on orderr.id_house_id = o.id\n" +
-            "where id_house_id = ?",nativeQuery = true)
+    @Query(value = "select * from orderr where id_house_id = ?",nativeQuery = true)
     Optional<Orderr> findAllByIdHouse(@Param("id") Long id);
 
 

@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.Optional;
 
 @RestController
@@ -20,7 +21,7 @@ public class HouseController {
     private HouseService houseService;
 
     @GetMapping
-    public ResponseEntity<Page<House>> findAllHouse(@PageableDefault(value = 6)  Pageable pageable) {
+    public ResponseEntity<Page<House>> findAllHouse(@PageableDefault(value = 6) Pageable pageable) {
         Page<House> houses = houseService.findAll(pageable);
         if (houses.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -38,48 +39,48 @@ public class HouseController {
     }
 
     @GetMapping("/category/{id}")
-    public ResponseEntity< Iterable<House> > findByIdCategory(@PathVariable Long id) {
+    public ResponseEntity<Iterable<House>> findByIdCategory(@PathVariable Long id) {
         Iterable<House> houses = houseService.findAllByIdCategory(id);
         return new ResponseEntity<>(houses, HttpStatus.OK);
     }
 
 
     @PostMapping
-    public ResponseEntity<House> saveProduct (@RequestBody House house) {
-        return new ResponseEntity<>(houseService.saveHouse(house) , HttpStatus.CREATED);
+    public ResponseEntity<House> saveProduct(@RequestBody House house) {
+        return new ResponseEntity<>(houseService.saveHouse(house), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<House> updateHouse (@PathVariable Long id,@RequestBody House house) {
+    public ResponseEntity<House> updateHouse(@PathVariable Long id, @RequestBody House house) {
         Optional<House> houseOptional = houseService.findById(id);
         if (!houseOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         house.setId(houseOptional.get().getId());
         houseService.save(house);
-        return new ResponseEntity<>( HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/by-price-between")
     public ResponseEntity<Iterable<House>> findAllByPriceBetween(@RequestParam int from, @RequestParam int to) {
-        Iterable<House> houses = (Iterable<House>) houseService.findAllByPriceBetween(from,to);
+        Iterable<House> houses = (Iterable<House>) houseService.findAllByPriceBetween(from, to);
         return new ResponseEntity<>(houses, HttpStatus.OK);
     }
 
     @GetMapping("/by-address")
-    public ResponseEntity<Iterable<House>> findAllByAddress(@RequestParam ("address") String  address ) {
+    public ResponseEntity<Iterable<House>> findAllByAddress(@RequestParam("address") String address) {
         Iterable<House> houses = (Iterable<House>) houseService.findAllByAddressContaining(address);
         return new ResponseEntity<>(houses, HttpStatus.OK);
     }
 
     @GetMapping("/by-price-between-name")
-    public ResponseEntity<Iterable<House>> findAllByPriceByName(@RequestParam String name,@RequestParam int from,@RequestParam int to) {
+    public ResponseEntity<Iterable<House>> findAllByPriceByName(@RequestParam String name, @RequestParam int from, @RequestParam int to) {
         Iterable<House> houses = houseService.findAllByNameContainingAndPriceBetween(name, from, to);
         return new ResponseEntity<>(houses, HttpStatus.OK);
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity< Iterable<House> > findByIdUserOwner(@PathVariable Long id) {
+    public ResponseEntity<Iterable<House>> findByIdUserOwner(@PathVariable Long id) {
         Iterable<House> houses = houseService.findAllByIdUserOwner(id);
         return new ResponseEntity<>(houses, HttpStatus.OK);
     }
@@ -96,7 +97,10 @@ public class HouseController {
 //    }
 
 
-
+    @GetMapping("/owner/{id}")
+    public ResponseEntity<Iterable<House>> findByIdUserOwnerAndStatus(@PathVariable Long id) {
+        return new ResponseEntity<>(houseService.findByIdUserOwnerAndStatus(id), HttpStatus.OK);
+    }
 
 
 }
