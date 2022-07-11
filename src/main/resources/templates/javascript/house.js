@@ -119,7 +119,7 @@ function htmlSeeDetail(house) {
                 <img src="https://firebasestorage.googleapis.com/v0/b/comhut-6cb9a.appspot.com/o/output-onlinegiftools.gif?alt=media&token=6cdc0287-cd96-411d-bc4e-be950e86fa8e" style="width: 60px;height: 60px"></h1>
             </div>
             <div class="row" style="background: #4caf8c;width: 100%">
-                <h1 style="color: #FFFFFF;margin-left: 20%;">CHÀO MỪNG BẠN ĐẾN ${house.name} !!</h1>
+                <h1 style="color: #FFFFFF;margin-left: 20%;">CHÀO MỪNG BẠN ĐẾN NHÀ ${house.name} !!</h1>
             </div>
             <div class="row mt-4" id="houseDetail">
                 <table class="table" style="color: #eff6f2; margin-right: 30px">

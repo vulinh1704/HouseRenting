@@ -25,10 +25,7 @@ public interface HouseRepository extends JpaRepository<House,Long> {
 
     Iterable<House> findAllByAddressContaining(String address);
 
-    @Query (value = "select *\n" +
-            "from house join user_role r on house.id_user_owner_id = r.role_id\n" +
-            "            join user_table us on us.id = r.user_id\n" +
-            "where user_id =?",nativeQuery = true )
+    @Query (value = "select * from houserenting.house h where h.id_user_owner_id = ?",nativeQuery = true )
     Iterable<House> findAllByIdUserOwner(@Param("id") Long id);
 
 

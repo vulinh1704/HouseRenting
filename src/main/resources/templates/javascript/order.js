@@ -7,7 +7,6 @@ function findAllOder() {
             type: "GET",
             url: "http://localhost:8080/oder/byIdUser/" + localStorage.getItem(storageKeyId),
             success: function (orders) {
-                console.log('order' , orders)
                 htmlOrder(orders);
             }, error: function (error) {
                 console.log(error)
