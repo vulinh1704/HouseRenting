@@ -55,30 +55,30 @@ function htmlMyHome(houses) {
                 str += `<tr>
                                 <th>${houses[i].name}</th>
                                 <th>Sẵn sàng</th>
-                                <th><buttton style="background-color: pink ; border-radius: 30px" onclick="showFormEdit(${houses[i].id})">Sửa</buttton></th>
-                                <th><buttton style="background-color: pink; border-radius: 30px;">Xóa</buttton></th>
+                                <th><a style="color: #f3edee" onclick="showFormEdit(${houses[i].id})">Sửa</a></th>
+                                <th><a style="color: #eeeaea">Xóa</a></th>
                                 <th><input type="file" value="upload" accept=".jpg" id="fileButton" onchange="upload(event)" style="width: 50%"></th>
-                                <th><buttton style="background-color: pink; border-radius: 30px;" onclick="sendImage(${houses[i].id})">Thêm</buttton></th>
+                                <th><a style="color: #efeded" onclick="sendImage(${houses[i].id})">Thêm</a></th>
                             </tr>`
             }
             if (houses[i].status === 2) {
                 str += `<tr>
                                 <th>${houses[i].name}</th>
                                 <th>Đang được thuê</th>
-                                <th><buttton style="background-color: pink ; border-radius: 30px ; width: 100%" onclick="showFormEdit(${houses[i].id})">Sửa</buttton></th>
-                                <th><buttton style="background-color: pink; border-radius: 30px;">Xóa</buttton></th>
+                                <th><a style="color: #f5eff0" onclick="showFormEdit(${houses[i].id})">Sửa</a></th>
+                                <th><a style="color: #f1ecec">Xóa</a></th>
                                 <td><input type="file" value="upload" accept=".jpg" id="fileButton" onchange="upload(event)" style="width: 50%; height: 30%"></td>
-                                <td><buttton style="background-color: pink; border-radius: 30px;"  onclick="sendImage(${houses[i].id})">Thêm</buttton></td>
+                                <td><a style="color: #f5f1f1"  onclick="sendImage(${houses[i].id})">Thêm</a></td>
                             </tr>`
             }
             if (houses[i].status === 3) {
                 str += `<tr>
                                 <th>${houses[i].name}</th>
                                 <th>Đang sửa chữa</th>
-                                <th><buttton style="background-color: pink ; border-radius: 30px" onclick="showFormEdit(${houses[i].id})">Sửa</buttton></th>
-                                <th><buttton style="background-color: pink; border-radius: 30px;">Xóa</buttton></th>
+                                <th><a style="color: #efe8e9" onclick="showFormEdit(${houses[i].id})">Sửa</a></th>
+                                <th><a style="color: #efe9ea">Xóa</a></th>
                                 <th><input type="file" value="upload" accept=".jpg" id="fileButton" onchange="upload(event)" style="width: 50%"></th>
-                                 <th><buttton style="background-color: pink; border-radius: 30px"  onclick="sendImage(${houses[i].id})">Thêm</buttton></th>
+                                 <th><a style="color: #f5f1f1"  onclick="sendImage(${houses[i].id})">Thêm</a></th>
                             </tr>`
             }
         }

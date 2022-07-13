@@ -132,7 +132,6 @@ function editStatusOrder(idHouse , sta){
 }
 
 
-
 //Danh sách nhà đang được thuê của bạn
 
 function findByIdOwnerAndStatus(){

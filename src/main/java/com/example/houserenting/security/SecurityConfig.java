@@ -72,7 +72,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
         http.csrf().ignoringAntMatchers("/**");
         http.httpBasic().authenticationEntryPoint(restServicesEntryPoint());
         http.authorizeRequests()
-                .antMatchers("/login", "/register", "/hello","/house/**","/oder/**","/images/**" , "/category/**").permitAll()
+                .antMatchers("/login", "/register", "/hello","/house/**","/oder/**","/images/**" , "/category/**" , "/api/notifications/**").permitAll()
                 .antMatchers("/users/**").access("hasRole('ROLE_USER')")
                 .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
 //                .antMatchers(HttpMethod.GET
@@ -86,6 +86,8 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
 //                .antMatchers(HttpMethod.PUT, "/users")
 //                .access("hasRole('ROLE_USER')")
                 .anyRequest().authenticated()
+//                .and()
+//                .oauth2Login()
                 .and().csrf().disable()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)

@@ -33,14 +33,16 @@
                             <a class="nav-link" onclick="htmlHouse()"><i class="fa-solid fa-house-flag"></i> ĐẶT NHÀ</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link" href="#" id="navbarDropdown" role="button"
+                            <a class="nav-link" href="#" id="navbarDropdown" role="button" onclick="numberNotification()"
                                data-toggle="dropdown" aria-expanded="false">
                                 <i class="fa-solid fa-arrow-pointer"></i> XEM THÊM
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown" >
                                 <a class="dropdown-item" onclick="findAllOder()">HÓA ĐƠN CỦA BẠN</a>
                                 <hr>
                                 <a class="dropdown-item" onclick="findByIdOwnerAndStatus()">NHÀ ĐANG ĐƯỢC THUÊ</a>
+                                <hr>
+                                <a class="dropdown-item" onclick="showNotifications()">THÔNG BÁO <span id="notificationNumber" style="color: #e74c67"></span></a>
                             </div>
                         </li>
                         <li class="nav-item">

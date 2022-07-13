@@ -139,7 +139,6 @@ function login() {
         url: "http://localhost:8080/login",
         data: JSON.stringify(user),
         success: function (data) {
-            console.log(data)
             localStorage.setItem(storageKey, data.accessToken)
             localStorage.setItem(storageKeyId, data.id)
             loginNotice(true);

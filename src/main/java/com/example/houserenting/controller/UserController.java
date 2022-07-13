@@ -113,4 +113,15 @@ public class UserController {
         userService.save(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
+
+//    @PostMapping("google/login")
+//    public ResponseEntity<?> loginGoogle(@RequestBody User user) {
+//        Authentication authentication = authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//        String jwt = jwtService.generateTokenLogin(authentication);
+//        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+//        User currentUser = userService.findByUsername(user.getUsername());
+//        return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(), userDetails.getAuthorities()));
+//    }
 }

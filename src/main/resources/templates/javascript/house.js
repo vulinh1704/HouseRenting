@@ -307,6 +307,7 @@ function handleRent(id, price, status) {
         success: function () {
             let sta = 2;
             editStatus(id, sta);
+            notificationUser(id);
         }, error: function (error) {
             console.log(error)
         }
@@ -361,6 +362,115 @@ function showImg(idHouse) {
             }
             document.getElementById(cardImg).innerHTML = str;
 
+        }, error: function (error) {
+            console.log(error)
+        }
+    })
+}
+
+function notificationUser(idHouse) {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/house/" + idHouse,
+        success: function (house) {
+            console.log(house)
+            saveNotification(house)
+        }, error: function (error) {
+            console.log(error)
+        }
+    })
+}
+
+function saveNotification(house) {
+    let content = house.idUserOwner.username + ` đã đặt nhà ` + house.name + ` của bạn!!`
+    let notification = {
+        name: content,
+        user: {
+            id: house.idUserOwner.id
+        }
+    }
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + localStorage.getItem(storageKey)
+        },
+        type: "POST",
+        url: "http://localhost:8080/api/notifications",
+        data: JSON.stringify(notification),
+        success: function () {
+        }, error: function (error) {
+            console.log(error)
+        }
+    })
+}
+
+function numberNotification() {
+    if (localStorage.getItem(storageKeyId) === "") {
+        document.getElementById("notificationNumber").innerHTML = ``;
+    }
+    if (localStorage.getItem(storageKeyId) !== "") {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/api/notifications/user/" + localStorage.getItem(storageKeyId),
+            success: function (notifications) {
+                if (notifications.length === 0) {
+                    document.getElementById("notificationNumber").innerHTML = ``;
+                } else {
+                    document.getElementById("notificationNumber").innerHTML = `(` + notifications.length + `)`;
+                }
+            }, error: function (error) {
+                console.log(error)
+            }
+        })
+    }
+}
+
+function showNotifications() {
+    if (localStorage.getItem(storageKeyId) === "") {
+        noticeToLogin()
+    }
+    if (localStorage.getItem(storageKeyId) !== "") {
+        document.getElementById("show_modal").innerHTML =
+            `<div class="modal-content">
+                    <div class="modal-header">
+                        <h5>Thông Báo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="text-align: right;">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="modalBody">
+                         <button></button>  
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>`
+        jQuery.noConflict();
+        $('#staticBackdrop').modal('show');
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/api/notifications/user/" + localStorage.getItem(storageKeyId),
+            success: function (notifications) {
+                if (notifications.length === 0) {
+                    document.getElementById("modalBody").innerHTML = `<p style="color: #4caf8c">Bạn hiện tại không có thông báo nào!</p>`
+                }
+                for (let i = 0; i < notifications.length; i++) {
+                    document.getElementById("modalBody").innerHTML = `<span style="color: #4caf8c">${notifications[i].name} <a style="color: #ce3852" onclick="deleteNotification(${notifications[i].id})">Xóa</a></span>`
+                }
+            }, error: function (error) {
+                console.log(error)
+            }
+        })
+    }
+}
+
+function deleteNotification(id) {
+    $.ajax({
+        type: "DELETE",
+        url: "http://localhost:8080/api/notifications/" + id,
+        success: function () {
+            $('#staticBackdrop').modal('hide');
         }, error: function (error) {
             console.log(error)
         }
